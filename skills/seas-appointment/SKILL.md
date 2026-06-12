@@ -53,7 +53,9 @@ Use the decision logic below to automatically determine the correct category fro
 
 1. **Tenured/established academic on leave?** → **Visiting Scholar**
 2. **Currently pursuing bachelor's?** → **VURI**
-3. **Currently pursuing master's or PhD?** → **Fellow**
+3. **Currently pursuing master's or PhD?**
+   - Nature of hire is **visiting PhD student** (will still be a student during the appointment) → **Fellow**
+   - Nature of hire is **incoming postdoc** (finishing PhD before start date, joining as postdoc after graduation) → **Postdoctoral Fellow**
 4. **Received PhD** → default to **Postdoctoral Fellow**, unless PI's description of intent and experience clearly indicates a senior category:
    - ~3–4 years postdoctoral/research experience → **Research Associate**
    - ~5–9 years → **Research Scientist**
