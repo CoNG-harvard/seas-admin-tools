@@ -6,19 +6,31 @@ Shared tools and Claude Code skills for SEAS faculty administrative workflows.
 
 ## Available Skills
 
-| Skill | Description |
-|---|---|
-| [seas-appointment](skills/seas-appointment/) | Generates a complete research appointment package (offer letter + forms) for a new recruit |
+| Skill | Description | Reference |
+|---|---|---|
+| [seas-appointment](skills/seas-appointment/) | Generates a complete research appointment package (offer letter + forms) for a new recruit | [SEAS Research Appointment Categories](https://seas.harvard.edu/office-faculty-affairs/research-appointments/research-appointment-categories) |
+
+---
+
+## Video Walkthrough
+
+New to this tool? Watch the instruction video: [▶ Watch on YouTube](https://youtu.be/zrId8V8OIDU)
 
 ---
 
 ## Setup
 
 ### Prerequisites
-- [Claude Code](https://claude.ai/code) installed and opened at least once
-- [Git](https://git-scm.com/) installed
+
+- **Claude Code** — the AI tool that runs these skills.
+  [Download and install Claude Code here](https://claude.ai/code). If you have never used it before, open it at least once after installing so it sets up your configuration. You can also ask Claude Code itself to help you get started — just type your question in the chat.
+
+- **Git** — used to download and update the skills.
+  [Download Git here](https://git-scm.com/downloads). If you are unsure whether Git is already installed, open a terminal and type `git --version`. If you see a version number, you are all set.
 
 ### One-time installation
+
+Open a terminal and run:
 
 ```bash
 # Clone the repo
@@ -28,7 +40,9 @@ git clone https://github.com/CoNG-harvard/seas-admin-tools.git ~/.claude/skills/
 ln -s ~/.claude/skills/seas-admin-tools/skills/seas-appointment ~/.claude/skills/seas-appointment
 ```
 
-Restart Claude Code (or start a new session).
+Then restart Claude Code (or start a new session).
+
+> **Never used a terminal before?** On a Mac, press `Cmd + Space`, type `Terminal`, and hit Enter. Then paste the commands above and press Enter after each one.
 
 ### Getting updates
 
