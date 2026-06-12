@@ -2,6 +2,8 @@
 
 Shared tools and Claude Code skills for SEAS faculty administrative workflows.
 
+> **Disclaimer:** This tool was developed by an individual faculty member for personal use and is shared informally with colleagues as a convenience. It is not an official tool of Harvard SEAS and is not maintained or endorsed by the institution. Users are responsible for verifying all appointment details, forms, and offer letter content with the SEAS Academic Appointments Office before use. The author makes no representations as to the accuracy or completeness of the information produced.
+
 ---
 
 ## Available Skills
