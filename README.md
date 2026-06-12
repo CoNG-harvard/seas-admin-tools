@@ -30,6 +30,16 @@ New to this tool? Watch the instruction video: [▶ Watch on YouTube](https://yo
 
 ### One-time installation
 
+**Option 1 — Let Claude Code do it for you (easiest)**
+
+Once Claude Code is installed, open it and paste this message into the chat:
+
+> Please install the seas-appointment skill from https://github.com/CoNG-harvard/seas-admin-tools — clone it into my Claude skills folder and set it up so I can use /seas-appointment.
+
+Claude will handle the rest.
+
+**Option 2 — Run the commands yourself**
+
 Open a terminal and run:
 
 ```bash
