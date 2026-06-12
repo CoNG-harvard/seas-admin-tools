@@ -26,7 +26,7 @@ New to this tool? Watch the instruction video: [▶ Watch on YouTube](https://yo
   [Download and install Claude Code here](https://claude.ai/code). If you have never used it before, open it at least once after installing so it sets up your configuration. You can also ask any AI chat bot to help you get started — just type your question in the chat.
 
 - **Git** — used to download and update the skills.
-  [Download Git here](https://git-scm.com/downloads). Again, the easiest way is to ask Claude Code to help you or any other AI tools. If you are unsure whether Git is already installed, open a terminal and type `git --version`. If you see a version number, you are all set.
+  [Download Git here](https://git-scm.com/downloads). Again, the easiest way is to ask Claude Code any other AI tools to help you. If you are unsure whether Git is already installed, open a terminal and type `git --version`. If you see a version number, you are all set.
 
 ### One-time installation
 
