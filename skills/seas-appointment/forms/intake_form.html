@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvard SEAS Research Appointment Intake Form</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 780px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+      color: #1a1a1a;
+      background: #fff;
+    }
+    h1 { font-size: 1.4rem; font-weight: 700; color: #A51C30; margin-bottom: 4px; }
+    .subtitle { font-size: 0.9rem; color: #555; margin-bottom: 8px; }
+    .ref-link { font-size: 0.85rem; margin-bottom: 32px; color: #555; }
+    .ref-link a { color: #A51C30; }
+    .section { margin-bottom: 36px; }
+    .section-header {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #A51C30; border-bottom: 2px solid #A51C30;
+      padding-bottom: 4px; margin-bottom: 20px;
+    }
+    .field { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
+    label .qnum { color: #A51C30; margin-right: 4px; }
+    label .note { font-weight: 400; font-size: 0.8rem; color: #666; font-style: italic; }
+    input[type="text"], input[type="email"], textarea {
+      width: 100%; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px;
+      padding: 9px 12px; font-size: 0.9rem; font-family: inherit; background: #fafafa;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #A51C30; background: #fff; }
+    textarea { resize: vertical; min-height: 70px; }
+    .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+    .radio-group label, .checkbox-group label {
+      font-weight: 400; display: flex; align-items: flex-start; gap: 8px; cursor: pointer;
+    }
+    .radio-group input, .checkbox-group input { margin-top: 2px; flex-shrink: 0; accent-color: #A51C30; }
+    .callout {
+      background: #fff8e1; border-left: 4px solid #f0a500; padding: 10px 14px;
+      border-radius: 0 6px 6px 0; font-size: 0.85rem; color: #555; margin-top: 12px;
+    }
+    .hidden { display: none; }
+    .sub-field {
+      margin-left: 24px; margin-top: 12px; padding-left: 12px; border-left: 2px solid #e0e0e0;
+    }
+    .option-desc { font-size: 0.82rem; color: #555; margin-left: 24px; margin-top: 2px; }
+    .btn-download {
+      background: #A51C30; color: white; border: none; padding: 14px 32px;
+      font-size: 1rem; font-weight: 600; border-radius: 8px; cursor: pointer;
+      margin-top: 16px; width: 100%;
+    }
+    .btn-download:hover { background: #8a1728; }
+    .btn-reset {
+      background: none; border: 1px solid #ccc; color: #666; padding: 10px 24px;
+      font-size: 0.9rem; border-radius: 8px; cursor: pointer; margin-top: 10px; width: 100%;
+    }
+    .btn-reset:hover { border-color: #999; color: #333; }
+    hr { border: none; border-top: 1px solid #eee; margin: 32px 0; }
+  </style>
+</head>
+<body>
+
+<h1>Harvard SEAS Research Appointment Intake Form</h1>
+<p class="subtitle">Complete this form and upload the downloaded file when using the <strong>/seas-appointment</strong> skill.</p>
+<p class="ref-link">For reference on appointment categories, see the <a href="https://seas.harvard.edu/office-faculty-affairs/research-appointments/research-appointment-categories" target="_blank">SEAS Research Appointment Categories</a> page.</p>
+
+<!-- SECTION A -->
+<div class="section">
+  <div class="section-header">Section A — About the PI</div>
+  <div class="field">
+    <label><span class="qnum">1.</span> Your full name and title <span class="note">(as it should appear on the offer letter)</span></label>
+    <input type="text" id="pi_name" placeholder="e.g., Na Li, Winokur Family Professor of ECE and AM">
+  </div>
+</div>
+
+<!-- SECTION B -->
+<div class="section">
+  <div class="section-header">Section B — About the Recruit</div>
+
+  <div class="field">
+    <label><span class="qnum">2.</span> Recruit's full name</label>
+    <input type="text" id="recruit_name" placeholder="e.g., Jane Smith">
+  </div>
+  <div class="field">
+    <label><span class="qnum">3.</span> Recruit's email address</label>
+    <input type="email" id="recruit_email" placeholder="e.g., jane.smith@university.edu">
+  </div>
+  <div class="field">
+    <label><span class="qnum">4.</span> Home institution and type</label>
+    <input type="text" id="institution" placeholder='e.g., "ETH Zurich (university)", "Google (company)", "unaffiliated"'>
+  </div>
+  <div class="field">
+    <label><span class="qnum">5.</span> Is this person a tenured or established academic on leave from their home institution?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="visiting_scholar" value="yes" onchange="toggleVisitingScholar()"> Yes → skip to Section C</label>
+      <label><input type="radio" name="visiting_scholar" value="no" onchange="toggleVisitingScholar()"> No → continue to question 6</label>
+    </div>
+  </div>
+
+  <div id="degree_section">
+    <div class="field">
+      <label><span class="qnum">6.</span> Current degree status <span class="note">(provide estimated date where applicable)</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="degree_status" value="bachelor" onchange="toggleDegreeFields()"> Currently pursuing a bachelor's — estimated graduation date?</label>
+        <label><input type="radio" name="degree_status" value="master" onchange="toggleDegreeFields()"> Currently pursuing a master's — estimated graduation date?</label>
+        <label><input type="radio" name="degree_status" value="phd_student" onchange="toggleDegreeFields()"> Currently pursuing a PhD — estimated graduation date?</label>
+        <label><input type="radio" name="degree_status" value="phd_received" onchange="toggleDegreeFields()"> Received a PhD (or equivalent doctoral degree) — year awarded?</label>
+        <label><input type="radio" name="degree_status" value="other" onchange="toggleDegreeFields()"> Other — please describe</label>
+      </div>
+    </div>
+
+    <div id="degree_date_field" class="hidden sub-field">
+      <div class="field">
+        <label id="degree_date_label">Estimated date <span class="note">(estimated is fine)</span></label>
+        <input type="text" id="degree_date" placeholder="e.g., May 2026">
+      </div>
+    </div>
+    <div id="degree_other_field" class="hidden sub-field">
+      <div class="field">
+        <label>Please describe</label>
+        <input type="text" id="degree_other">
+      </div>
+    </div>
+
+    <!-- Q7: only shown for currently pursuing PhD -->
+    <div id="phd_nature_section" class="hidden">
+      <div class="field">
+        <label><span class="qnum">7.</span> What is the nature of this hire?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="phd_nature" value="visiting" onchange="togglePhdNature()"> Visiting PhD student — collaborating while still enrolled at their institution</label>
+          <label><input type="radio" name="phd_nature" value="incoming_postdoc" onchange="togglePhdNature()"> Incoming postdoc — finishing PhD, will start after graduation</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 for received PhD / Q8 for incoming postdoc -->
+    <div id="phd_intent_section" class="hidden">
+      <div class="field">
+        <label id="phd_intent_label"><span class="qnum">7.</span> What is your intention for this hire, and briefly describe the recruit's experience since receiving their PhD?</label>
+        <textarea id="phd_intent" placeholder='e.g., "postdoc working in my lab, just finished PhD this spring", "senior researcher to lead a project, 8 years of postdoc and industry experience at MIT and Google DeepMind"'></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION C -->
+<div class="section">
+  <div class="section-header">Section C — About the Appointment</div>
+
+  <div class="field">
+    <label><span class="qnum">8.</span> Research topic <span class="note">(a brief phrase is fine, e.g., "embodied AI")</span></label>
+    <input type="text" id="research_topic" placeholder="e.g., embodied AI, protein folding, climate modeling">
+  </div>
+  <div class="field">
+    <label><span class="qnum">9.</span> Start and end dates</label>
+    <input type="text" id="start_date" placeholder="Start date, e.g., September 1, 2025" style="margin-bottom:8px">
+    <input type="text" id="end_date" placeholder="End date, e.g., August 31, 2026">
+  </div>
+
+  <div class="field">
+    <label><span class="qnum">10.</span> Is the appointment paid or unpaid?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="paid_status" value="unpaid" onchange="toggleCompensation()"> Unpaid — Harvard pays nothing. The recruit is funded entirely outside Harvard — by their home institution, a national fellowship, or a personal award (e.g., Marie Curie, JSPS, home country grant).</label>
+      <label><input type="radio" name="paid_status" value="paid" onchange="toggleCompensation()"> Paid — Harvard provides compensation</label>
+    </div>
+  </div>
+
+  <div id="compensation_type_section" class="hidden sub-field">
+    <div class="field">
+      <label>If paid: is the position Stipend or Salaried Employee?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="comp_type" value="stipend" onchange="toggleCompType()"> <strong>Stipend</strong></label>
+        <p class="option-desc">Harvard issues a fixed periodic fellowship payment, not wages. No I-9, no payroll tax withholding; recipient handles their own taxes.</p>
+        <label><input type="radio" name="comp_type" value="employee" onchange="toggleCompType()"> <strong>Salaried Employee</strong></label>
+        <p class="option-desc">Harvard payroll. I-9 required, taxes withheld by Harvard, HAW-UAW union eligible.</p>
+      </div>
+      <div class="callout">Note for OPT/STEM OPT: salaried employee is strongly recommended — a stipend may not satisfy USCIS employment verification requirements.</div>
+    </div>
+
+    <div id="stipend_funder_section" class="hidden">
+      <div class="field">
+        <label>If stipend — Funding source?</label>
+        <input type="text" id="funding_source" placeholder='e.g., "NSF grant", "NIH award", "Harvard University"'>
+      </div>
+    </div>
+  </div>
+
+  <div id="unpaid_funder_section" class="hidden sub-field">
+    <div class="field">
+      <label>External funding source</label>
+      <input type="text" id="external_funder_c" placeholder='e.g., "Marie Curie Fellowship", "JSPS", "home institution grant"'>
+    </div>
+  </div>
+
+  <div id="annual_amount_section" class="hidden">
+    <div class="field">
+      <label><span class="qnum">11.</span> Annual amount <span class="note">(if paid)</span></label>
+      <input type="text" id="annual_amount" placeholder="e.g., $70,000">
+    </div>
+  </div>
+</div>
+
+<!-- SECTION D -->
+<div class="section">
+  <div class="section-header">Section D — Visa &amp; Work Authorization</div>
+
+  <div class="field">
+    <label><span class="qnum">12.</span> Visa / work authorization status</label>
+    <div class="radio-group">
+      <label><input type="radio" name="visa_status" value="us_citizen_pr" onchange="toggleVisa()"> US citizen or permanent resident</label>
+      <label><input type="radio" name="visa_status" value="opt" onchange="toggleVisa()"> F-1 OPT or STEM OPT</label>
+      <label><input type="radio" name="visa_status" value="j1" onchange="toggleVisa()"> Needs Harvard to sponsor a J-1 visa</label>
+      <label><input type="radio" name="visa_status" value="other" onchange="toggleVisa()"> Other — please describe</label>
+    </div>
+  </div>
+
+  <div id="visa_other_section" class="hidden sub-field">
+    <div class="field">
+      <label>Please describe</label>
+      <input type="text" id="visa_other">
+    </div>
+  </div>
+
+  <div id="elp_section" class="hidden">
+    <div class="field">
+      <label><span class="qnum">13.</span> How did you assess the recruit's English proficiency? <span class="note">(Check all that apply)</span></label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="elp" value="toefl_ielts"> Test score (TOEFL or IELTS)</label>
+        <label><input type="checkbox" name="elp" value="institutional_doc"> Institutional documentation (university certified in writing)</label>
+        <label><input type="checkbox" name="elp" value="in_person"> In-person interview</label>
+        <label><input type="checkbox" name="elp" value="video_call"> Video call (Zoom, Teams, Skype, etc.)</label>
+        <label><input type="checkbox" name="elp" value="phone_call"> Phone call</label>
+        <label><input type="checkbox" name="elp" value="returning"> Returning visitor (prior J-1 at Harvard)</label>
+        <label><input type="checkbox" name="elp" value="other_elp" onchange="toggleElpOther()"> Other — please describe</label>
+      </div>
+      <div id="elp_other_field" class="hidden sub-field">
+        <div class="field">
+          <label>Please describe</label>
+          <input type="text" id="elp_other">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION E -->
+<div id="section_e" class="hidden section">
+  <div class="section-header">Section E — Postdoc &amp; Senior Appointments Only</div>
+
+  <div class="field">
+    <label><span class="qnum">14.</span> Full-time or part-time?</label>
+    <div class="radio-group">
+      <label><input type="radio" name="fulltime" value="full-time"> Full-time</label>
+      <label><input type="radio" name="fulltime" value="part-time"> Part-time</label>
+    </div>
+  </div>
+  <div class="field">
+    <label><span class="qnum">15.</span> Office / desk space <span class="note">(where will the recruit be located? Leave blank if not yet determined)</span></label>
+    <input type="text" id="office_space" placeholder="e.g., SEC building, Maxwell Dworkin">
+  </div>
+  <div class="field">
+    <label><span class="qnum">16.</span> Research allowance <span class="note">(will you provide a research budget? If yes, please describe. Leave blank if none)</span></label>
+    <input type="text" id="research_allowance" placeholder="e.g., We will provide adequate research support">
+  </div>
+  <div class="field">
+    <label><span class="qnum">17.</span> Travel allowance <span class="note">(will you provide a travel budget? If yes, how much per year? Leave blank if none)</span></label>
+    <input type="text" id="travel_allowance" placeholder="e.g., $3,000 per year">
+  </div>
+
+  <div id="postdoc_stipend_funder" class="hidden">
+    <div class="field">
+      <label><span class="qnum">18.</span> Funding source <span class="note">(if stipend — who funds the stipend?)</span></label>
+      <input type="text" id="postdoc_funding_source" placeholder='e.g., "NSF grant", "Harvard University", "NIH award"'>
+    </div>
+  </div>
+
+  <div id="postdoc_duties_section" class="hidden">
+    <div class="field">
+      <label><span class="qnum">18.</span> Additional duties / responsibilities <span class="note">(if salaried employee — beyond research, any expected contributions? Leave blank to omit from the letter)</span></label>
+      <textarea id="additional_duties" placeholder="e.g., mentoring students, assisting with grant proposals, teaching opportunities"></textarea>
+    </div>
+  </div>
+
+  <div id="postdoc_unpaid_funder" class="hidden">
+    <div class="field">
+      <label><span class="qnum">18.</span> External funding source <span class="note">(if unpaid — who is funding the recruit externally?)</span></label>
+      <input type="text" id="external_funder_e" placeholder='e.g., name of their fellowship or home institution grant'>
+    </div>
+  </div>
+</div>
+
+<hr>
+<button class="btn-download" onclick="downloadSummary()">Download Intake Summary</button>
+<button class="btn-reset" onclick="resetForm()">Reset Form</button>
+
+<script>
+  function toggleVisitingScholar() {
+    const val = document.querySelector('input[name="visiting_scholar"]:checked')?.value;
+    document.getElementById('degree_section').classList.toggle('hidden', val === 'yes');
+    if (val === 'yes') document.getElementById('section_e').classList.add('hidden');
+  }
+
+  function toggleDegreeFields() {
+    const val = document.querySelector('input[name="degree_status"]:checked')?.value;
+    const dateField = document.getElementById('degree_date_field');
+    const otherField = document.getElementById('degree_other_field');
+    const phdNature = document.getElementById('phd_nature_section');
+    const phdIntent = document.getElementById('phd_intent_section');
+    const sectionE = document.getElementById('section_e');
+    const dateLabel = document.getElementById('degree_date_label');
+    const intentLabel = document.getElementById('phd_intent_label');
+
+    // Reset all
+    dateField.classList.add('hidden');
+    otherField.classList.add('hidden');
+    phdNature.classList.add('hidden');
+    phdIntent.classList.add('hidden');
+    sectionE.classList.add('hidden');
+    document.querySelectorAll('input[name="phd_nature"]').forEach(r => r.checked = false);
+
+    if (val === 'bachelor') {
+      dateField.classList.remove('hidden');
+      dateLabel.innerHTML = 'Estimated bachelor\'s graduation date <span class="note">(estimated is fine)</span>';
+    } else if (val === 'master') {
+      dateField.classList.remove('hidden');
+      dateLabel.innerHTML = 'Estimated master\'s graduation date <span class="note">(estimated is fine)</span>';
+    } else if (val === 'phd_student') {
+      dateField.classList.remove('hidden');
+      dateLabel.innerHTML = 'Estimated PhD completion date <span class="note">(estimated is fine)</span>';
+      phdNature.classList.remove('hidden');
+    } else if (val === 'phd_received') {
+      dateField.classList.remove('hidden');
+      dateLabel.innerHTML = 'Year PhD was awarded';
+      intentLabel.innerHTML = '<span class="qnum">7.</span> What is your intention for this hire, and briefly describe the recruit\'s experience since receiving their PhD?';
+      phdIntent.classList.remove('hidden');
+      sectionE.classList.remove('hidden');
+      updatePostdocBranches();
+    } else if (val === 'other') {
+      otherField.classList.remove('hidden');
+    }
+  }
+
+  function togglePhdNature() {
+    const val = document.querySelector('input[name="phd_nature"]:checked')?.value;
+    const phdIntent = document.getElementById('phd_intent_section');
+    const sectionE = document.getElementById('section_e');
+    const intentLabel = document.getElementById('phd_intent_label');
+
+    if (val === 'visiting') {
+      phdIntent.classList.add('hidden');
+      sectionE.classList.add('hidden');
+    } else if (val === 'incoming_postdoc') {
+      intentLabel.innerHTML = '<span class="qnum">8.</span> What is your intention for this hire, and briefly describe the recruit\'s experience? e.g., "incoming postdoc, finishing PhD this spring at MIT"';
+      phdIntent.classList.remove('hidden');
+      sectionE.classList.remove('hidden');
+      updatePostdocBranches();
+    }
+  }
+
+  function toggleCompensation() {
+    const val = document.querySelector('input[name="paid_status"]:checked')?.value;
+    document.getElementById('compensation_type_section').classList.toggle('hidden', val !== 'paid');
+    document.getElementById('annual_amount_section').classList.toggle('hidden', val !== 'paid');
+    document.getElementById('unpaid_funder_section').classList.toggle('hidden', val !== 'unpaid');
+    if (val !== 'paid') {
+      document.getElementById('stipend_funder_section').classList.add('hidden');
+    }
+    updatePostdocBranches();
+  }
+
+  function toggleCompType() {
+    const val = document.querySelector('input[name="comp_type"]:checked')?.value;
+    document.getElementById('stipend_funder_section').classList.toggle('hidden', val !== 'stipend');
+    updatePostdocBranches();
+  }
+
+  function updatePostdocBranches() {
+    const degreeVal = document.querySelector('input[name="degree_status"]:checked')?.value;
+    const phdNatureVal = document.querySelector('input[name="phd_nature"]:checked')?.value;
+    const paidVal = document.querySelector('input[name="paid_status"]:checked')?.value;
+    const compVal = document.querySelector('input[name="comp_type"]:checked')?.value;
+    const isPostdoc = degreeVal === 'phd_received' ||
+                      (degreeVal === 'phd_student' && phdNatureVal === 'incoming_postdoc');
+
+    document.getElementById('postdoc_stipend_funder').classList.toggle('hidden', !(isPostdoc && paidVal === 'paid' && compVal === 'stipend'));
+    document.getElementById('postdoc_duties_section').classList.toggle('hidden', !(isPostdoc && paidVal === 'paid' && compVal === 'employee'));
+    document.getElementById('postdoc_unpaid_funder').classList.toggle('hidden', !(isPostdoc && paidVal === 'unpaid'));
+  }
+
+  function toggleVisa() {
+    const val = document.querySelector('input[name="visa_status"]:checked')?.value;
+    document.getElementById('elp_section').classList.toggle('hidden', val !== 'j1');
+    document.getElementById('visa_other_section').classList.toggle('hidden', val !== 'other');
+  }
+
+  function toggleElpOther() {
+    const checked = document.querySelector('input[name="elp"][value="other_elp"]')?.checked;
+    document.getElementById('elp_other_field').classList.toggle('hidden', !checked);
+  }
+
+  function getValue(id) { return (document.getElementById(id)?.value || '').trim(); }
+  function getRadio(name) { return document.querySelector(`input[name="${name}"]:checked`)?.value || ''; }
+  function getCheckboxes(name) { return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(el => el.value); }
+
+  function downloadSummary() {
+    const visitingScholar = getRadio('visiting_scholar');
+    const degreeStatus = getRadio('degree_status');
+    const phdNature = getRadio('phd_nature');
+    const paidStatus = getRadio('paid_status');
+    const compType = getRadio('comp_type');
+    const visaStatus = getRadio('visa_status');
+    const elpMethods = getCheckboxes('elp');
+    const fulltime = getRadio('fulltime');
+
+    // Determine if Section E applies
+    const isPostdoc = degreeStatus === 'phd_received' ||
+                      (degreeStatus === 'phd_student' && phdNature === 'incoming_postdoc');
+
+    const degreeLabels = {
+      bachelor: "Currently pursuing a bachelor's",
+      master: "Currently pursuing a master's",
+      phd_student: "Currently pursuing a PhD",
+      phd_received: "Received a PhD (or equivalent doctoral degree)",
+      other: "Other"
+    };
+    const visaLabels = {
+      us_citizen_pr: "US citizen or permanent resident",
+      opt: "F-1 OPT or STEM OPT",
+      j1: "Needs Harvard to sponsor a J-1 visa",
+      other: "Other"
+    };
+    const elpLabels = {
+      toefl_ielts: "Test score (TOEFL or IELTS)",
+      institutional_doc: "Institutional documentation (university certified in writing)",
+      in_person: "In-person interview",
+      video_call: "Video call (Zoom, Teams, Skype, etc.)",
+      phone_call: "Phone call",
+      returning: "Returning visitor (prior J-1 at Harvard)",
+      other_elp: `Other: ${getValue('elp_other')}`
+    };
+
+    const degreeDate = getValue('degree_date');
+    const degreeOther = getValue('degree_other');
+
+    let lines = [
+      "SEAS APPOINTMENT INTAKE SUMMARY",
+      "================================",
+      "",
+      "SECTION A: ABOUT THE PI",
+      `1. PI Full Name and Title: ${getValue('pi_name')}`,
+      "",
+      "SECTION B: ABOUT THE RECRUIT",
+      `2. Recruit Full Name: ${getValue('recruit_name')}`,
+      `3. Recruit Email: ${getValue('recruit_email')}`,
+      `4. Home Institution: ${getValue('institution')}`,
+      `5. Tenured academic on leave (Visiting Scholar): ${visitingScholar === 'yes' ? 'Yes' : visitingScholar === 'no' ? 'No' : 'Not answered'}`,
+    ];
+
+    if (visitingScholar !== 'yes') {
+      lines.push(`6. Degree Status: ${degreeLabels[degreeStatus] || 'Not answered'}${degreeDate ? ' — ' + degreeDate : ''}${degreeStatus === 'other' && degreeOther ? ' — ' + degreeOther : ''}`);
+
+      if (degreeStatus === 'phd_student') {
+        const natureLabel = phdNature === 'visiting' ? 'Visiting PhD student (collaborating while still enrolled)'
+                          : phdNature === 'incoming_postdoc' ? 'Incoming postdoc (finishing PhD, starting after graduation)'
+                          : 'Not answered';
+        lines.push(`7. Nature of hire: ${natureLabel}`);
+        if (phdNature === 'incoming_postdoc') {
+          lines.push(`8. Intention & Experience: ${getValue('phd_intent')}`);
+        }
+      } else if (degreeStatus === 'phd_received') {
+        lines.push(`7. Intention & Experience Since PhD: ${getValue('phd_intent')}`);
+      }
+    }
+
+    lines.push(
+      "",
+      "SECTION C: ABOUT THE APPOINTMENT",
+      `8. Research Topic: ${getValue('research_topic')}`,
+      `9. Start Date: ${getValue('start_date')}`,
+      `   End Date: ${getValue('end_date')}`,
+      `10. Paid or Unpaid: ${paidStatus === 'unpaid' ? 'Unpaid' : paidStatus === 'paid' ? 'Paid' : 'Not answered'}`,
+    );
+
+    if (paidStatus === 'paid') {
+      lines.push(`    Compensation Type: ${compType === 'stipend' ? 'Stipend' : compType === 'employee' ? 'Salaried Employee' : 'Not answered'}`);
+      if (compType === 'stipend') lines.push(`    Funding Source: ${getValue('funding_source') || 'Not specified'}`);
+      lines.push(`11. Annual Amount: ${getValue('annual_amount') || 'Not specified'}`);
+    }
+    if (paidStatus === 'unpaid') {
+      lines.push(`    External Funding Source: ${getValue('external_funder_c') || 'Not specified'}`);
+    }
+
+    lines.push(
+      "",
+      "SECTION D: VISA & WORK AUTHORIZATION",
+      `12. Visa/Work Authorization: ${visaLabels[visaStatus] || 'Not answered'}${visaStatus === 'other' ? ' — ' + getValue('visa_other') : ''}`,
+    );
+
+    if (visaStatus === 'j1') {
+      lines.push(`13. English Proficiency Methods: ${elpMethods.map(v => elpLabels[v]).join('; ') || 'None selected'}`);
+    }
+
+    if (isPostdoc && visitingScholar !== 'yes') {
+      lines.push(
+        "",
+        "SECTION E: POSTDOC & SENIOR APPOINTMENT DETAILS",
+        `14. Full-time or Part-time: ${fulltime || 'Not answered'}`,
+        `15. Office/Desk Space: ${getValue('office_space') || 'TBD'}`,
+        `16. Research Allowance: ${getValue('research_allowance') || 'None specified'}`,
+        `17. Travel Allowance: ${getValue('travel_allowance') || 'None specified'}`,
+      );
+      if (paidStatus === 'paid' && compType === 'stipend') {
+        lines.push(`18. Funding Source (Stipend): ${getValue('postdoc_funding_source') || 'Not specified'}`);
+      } else if (paidStatus === 'paid' && compType === 'employee') {
+        lines.push(`18. Additional Duties/Responsibilities: ${getValue('additional_duties') || 'None'}`);
+      } else if (paidStatus === 'unpaid') {
+        lines.push(`18. External Funding Source: ${getValue('external_funder_e') || 'Not specified'}`);
+      }
+    }
+
+    lines.push("", "================================", "Generated by SEAS Appointment Intake Form");
+
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(getValue('recruit_name') || 'recruit').replace(/\s+/g, '_')}_intake.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function resetForm() {
+    if (confirm('Reset all fields?')) {
+      document.querySelectorAll('input, textarea').forEach(el => {
+        if (el.type === 'checkbox' || el.type === 'radio') el.checked = false;
+        else el.value = '';
+      });
+      ['degree_date_field','degree_other_field','phd_intent_section','compensation_type_section',
+       'annual_amount_section','unpaid_funder_section','stipend_funder_section',
+       'postdoc_stipend_funder','postdoc_duties_section','postdoc_unpaid_funder',
+       'elp_section','elp_other_field','visa_other_section','section_e'].forEach(id => {
+        document.getElementById(id)?.classList.add('hidden');
+      });
+      document.getElementById('degree_section').classList.remove('hidden');
+    }
+  }
+</script>
+</body>
+</html>
